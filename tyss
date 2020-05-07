@@ -1,0 +1,42 @@
+# import ctypes
+import time
+from ctypes import *
+import win32gui,  win32api, win32con
+import time, sys, random
+from DirextInput import *
+# Import DirectPython modules and constants.
+# import d3d11
+# import d3d11x
+# from d3d11c import *
+
+
+classname = "Tia NetEase"    # 精灵抓抓获取程序英文代码
+titlename = "泰亚史诗 艾古铎"   # 精灵抓抓获取程序中文名称
+
+hwnd = win32gui.FindWindow(classname, titlename)  # 获取句柄
+win32gui.SetForegroundWindow(hwnd)
+left, top, right, bottom = win32gui.GetWindowRect(hwnd)  # 获取窗口左上角和右下角坐标
+
+
+def ready():
+    if(win32gui.IsIconic(hwnd)):     #如果窗口未激活
+        win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)  #激活游戏窗口
+    else:
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOP, 50, 50, 1600, 900, win32con.SWP_SHOWWINDOW)
+
+
+num = 1
+while num <= 2:
+    num += 1
+    windll.user32.SetCursorPos(int(right/2) + (num*50), int(bottom/2) - (num*50))
+    # win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0)
+    # time.sleep(0.05)
+    # win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0)
+    PressKey(0xB5)
+    time.sleep(0.5)
+    PressKey(0x4C)
+    time.sleep(0.5)
+    ReleaseKey(0x4C)
+    ReleaseKey(0xB5)
+    time.sleep(1)
+    print(num)
